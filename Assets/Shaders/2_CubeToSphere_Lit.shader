@@ -21,9 +21,9 @@ Shader "Unlit/2_CubeToSphere_Lit"
 
             float _Radius;
 
-            v2f vert (appdata_base v)
+            v2f_lit vert (appdata_base v)
             {
-                v2f output;
+                v2f_lit output;
 
                 // calculate position of vertices in a sphere of radius
                 float3 normalizedRadialRay = normalize(v.vertex.xyz);
@@ -50,7 +50,7 @@ Shader "Unlit/2_CubeToSphere_Lit"
                 return output;
             }
 
-            fixed4 frag (v2f i) : COLOR
+            fixed4 frag (v2f_lit i) : COLOR
             {
                 return fixed4(1,1,1,1) * i.diff;
             }

@@ -9,6 +9,7 @@ Ball of Lava Shader implemented with the **Cg** shader programming language for 
 ## Shaders
 
 - [Oscillating shape-shifting](#oscillating-shape-shifting)
+- [Lighting](#lighting)
 
 ## Screenshots
 
@@ -43,4 +44,34 @@ v2f vert (appdata_base v)
 
 ![Gif](./docs/1.gif)
 
----
+## Lighting
+
+1. Use `UnityLightingCommon.cginc` for common lighting functions and values.
+1. Calculate the `UnityObjectToWorldNormal` using the current normal of the vertex.
+1. Make sure to `lerp` the current normal of the vertex between the one it has in the cube shape, and the one it has in the sphere shape.
+1. Do the `dot` product between the vertex normal and the light direction in `_WorldSpaceLightPos0.xyz`.
+1. This scalar value represents the influence of the light in the color of the pixel.
+1. Calculate the diffuse color multiplying the `dot` scalar value by `_LightColor0`.
+
+```c
+#include "UnityLightingCommon.cginc"
+
+v2f vert (appdata_base v)
+{
+      ...
+
+      // calculate lighting
+      float3 lightDirection = _WorldSpaceLightPos0.xyz;
+
+      float3 lerpedNormal = lerp(v.normal, normalizedRadialRay, delta);
+      half3 worldNormal = UnityObjectToWorldNormal(lerpedNormal);
+
+      // dot product between normal and light vector, provide the basis for the lit shading
+      half lightInfluence = max(0, dot(worldNormal, lightDirection)); // avoid negative values
+      output.diff = lightInfluence * _LightColor0;
+
+      ...
+}
+```
+
+![Gif](./docs/2.gif)

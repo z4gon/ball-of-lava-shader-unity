@@ -8,4 +8,5 @@ struct v2f
     float4 vertex: SV_POSITION; // From Object-Space to Clip-Space
     // float4 position: TEXCOORD1;
     // float4 uv: TEXCOORD0;
+    fixed4 diff: COLOR0; // diffuse lighting color
 };

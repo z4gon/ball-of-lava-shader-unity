@@ -68,17 +68,20 @@ Material:
     - _DebugGradients: 1
     - _DebugSquares: 1
     - _DetailNormalMapScale: 1
-    - _Displacement: 0.173
+    - _Displacement: 0.159
     - _DstBlend: 0
+    - _FlowVelocity: 2.32
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
+    - _NoiseVelocity: 1.94
     - _OcclusionStrength: 1
     - _Offset: 0.36
     - _Parallax: 0.02
     - _Radius: 1.1
+    - _RotationVelocity: 2.01
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1

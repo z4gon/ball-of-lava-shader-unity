@@ -6,6 +6,7 @@ struct v2f
     //      - TEXCOORDn means custom data
 
     float4 vertex: SV_POSITION; // From Object-Space to Clip-Space
+    float displacement: TEXCOORD2;
     float4 position: TEXCOORD1;
     float4 uv: TEXCOORD0;
 };

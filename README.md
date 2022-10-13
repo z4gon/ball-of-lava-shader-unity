@@ -10,8 +10,11 @@ Ball of Lava Shader implemented with the **Cg** shader programming language for 
 
 - [Oscillating shape-shifting](#oscillating-shape-shifting)
 - [Lighting](#lighting)
+- [Ball of Lava](#ball-of-lava)
 
 ## Screenshots
+
+![Gif](./docs/5.gif)
 
 ---
 
@@ -75,3 +78,29 @@ v2f vert (appdata_base v)
 ```
 
 ![Gif](./docs/2.gif)
+
+## Ball of Lava
+
+1. Generate a Mesh and make sure the UV map wraps correctly, so the Perlin noise doesn't generate weird shapes in the mesh.
+1. Use the **Perlin Noise** algorithm to displace the vertices given the noise function.
+1. Use `_Time` to animate the Perlin Noise, also multiply by `_Displacement` and `_NoiseVelocity` to control how much and how fast the noise is.
+1. Displace the `uv` coordinates to simulate rotation, multiply by `_RotationVelocity` to control the speed.
+
+```c
+// move the uvs to simulate lava flow
+float2 uvs = (v.texcoord + (_Time.x * _RotationVelocity)) % 1.0;
+
+// use 8x8 grid, with a changing time to animate the lava
+float perlinNoise = perlin(uvs, 12, 12, _Time.y * _NoiseVelocity); // from 0 to 1
+float noise = ( perlinNoise - 0.5) * 2; // from -1.0 to 1.0
+// amplify the noise given parameter
+float displacement = noise * _Displacement;
+
+// displace the vertex given the noise function value
+float3 displacedPos = v.vertex * (1 + displacement);
+float4 vertexPosition = float4(displacedPos * 80.0, v.vertex.w);
+```
+
+![Gif](./docs/3.gif)
+![Gif](./docs/4.gif)
+![Gif](./docs/5.gif)

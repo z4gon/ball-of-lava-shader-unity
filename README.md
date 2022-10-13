@@ -14,7 +14,7 @@ Ball of Lava Shader implemented with the **Cg** shader programming language for 
 
 ## Screenshots
 
-![Gif](./docs/5.gif)
+![Gif](./docs/7.gif)
 
 ---
 
@@ -85,6 +85,7 @@ v2f vert (appdata_base v)
 1. Use the **Perlin Noise** algorithm to displace the vertices given the noise function.
 1. Use `_Time` to animate the Perlin Noise, also multiply by `_Displacement` and `_NoiseVelocity` to control how much and how fast the noise is.
 1. Displace the `uv` coordinates to simulate rotation, multiply by `_RotationVelocity` to control the speed.
+1. Lerp between colors using steps.
 
 ```c
 // move the uvs to simulate lava flow
@@ -101,6 +102,32 @@ float3 displacedPos = v.vertex * (1 + displacement);
 float4 vertexPosition = float4(displacedPos * 80.0, v.vertex.w);
 ```
 
+```c
+fixed4 lerpColor(float displacement)
+{
+      fixed4 colors[4] = { _ColorA, _ColorB, _ColorC, _ColorD };
+      float steps[4] = { _ColorStepA, _ColorStepB, _ColorStepC, _ColorStepD };
+
+      if(displacement <= steps[0]) { return colors[0]; }
+      if(displacement >= steps[3]) { return colors[3]; }
+
+      for (int i = 0; i <= 2; i++) {
+            if (steps[i] <= displacement && displacement <= steps[i+1]) {
+            return lerp(
+                  colors[i],
+                  colors[i+1],
+                  (displacement - steps[i])/(steps[i+1] - steps[i])
+            );
+            }
+      }
+
+      // this should never happen
+      return fixed4(0,0,0,1);
+}
+```
+
 ![Gif](./docs/3.gif)
 ![Gif](./docs/4.gif)
 ![Gif](./docs/5.gif)
+![Gif](./docs/6.gif)
+![Gif](./docs/7.gif)

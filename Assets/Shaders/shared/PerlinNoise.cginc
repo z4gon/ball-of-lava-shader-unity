@@ -61,8 +61,8 @@ fixed4 perlin(
     float squareHeight = 1 / float(rows);
 
     // current square
-    int column = floor(uv.x / squareWidth) % (columns - 1);
-    int row = floor(uv.y / squareHeight) % (rows - 1);
+    int column = floor(uv.x / squareWidth);
+    int row = floor(uv.y / squareHeight);
 
     // corners
     float2 topLeft = float2(0.0,1.0);

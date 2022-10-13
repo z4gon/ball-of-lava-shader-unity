@@ -1,53 +1,46 @@
-# Unity Template Project for Built-In RP
+# Ball of Lava Shader
 
-{{YOUR_PROJECT_DESCRIPTION_HERE}} in Unity **Unity 2021.3.10f1**
+Ball of Lava Shader implemented with the **Cg** shader programming language for the Built-In RP in **Unity 2021.3.10f1**
 
-## Features
+### References
 
-- [Feature](#feature)
-- [Feature](#feature)
-- [Feature](#feature)
+- [Learn Unity Shaders from Scratch course by Nik Lever](https://www.udemy.com/course/learn-unity-shaders-from-scratch)
+
+## Shaders
+
+- [Oscillating shape-shifting](#oscillating-shape-shifting)
 
 ## Screenshots
 
-![Gif](./docs/1.gif)
+---
+
+## Oscillating shape-shifting
+
+1. Calculate a normalized ray vector from the center of the object, to the vertex.
+1. Multiply by the desired shpere radius, to shape the intended sphere object.
+1. Use `lerp` and a `sin` of `_Time` to oscillate between the cube and sphere shapes.
+
+```c
+v2f vert (appdata_base v)
+{
+      v2f output;
+
+      // calculate position of vertices in a sphere of radius
+      float3 normalizedRadialRay = normalize(v.vertex.xyz);
+      float4 spherePos = float4(normalizedRadialRay * _Radius, v.vertex.w);
+
+      // oscillate between the two positions
+      float delta = (sin(_Time.w) + 1.0) / 2.0;
+      float4 oscillatingPos = lerp(v.vertex * 50.0, spherePos, delta);
+
+      output.vertex = UnityObjectToClipPos(oscillatingPos);
+      // output.position = v.vertex;
+      // output.uv = v.texcoord;
+
+      return output;
+}
+```
+
 ![Gif](./docs/1.gif)
 
 ---
-
-## Feature
-
-1. Implementation detail.
-1. Implementation detail.
-1. Implementation detail.
-
-![Gif](./docs/1.gif)
-![Gif](./docs/1.gif)
-
-## Feature
-
-1. Implementation detail.
-1. Implementation detail.
-1. Implementation detail.
-
-![Gif](./docs/1.gif)
-![Gif](./docs/1.gif)
-
----
-
-## Implementation explained
-
-1. **Step**
-
-   1. Sub Step.
-   1. Sub Step.
-
-1. **Step**
-
-   1. Sub Step.
-   1. Sub Step.
-
-## References
-
-- [Ref](https://adrianb.io/2014/08/09/perlinnoise.html)
-- [Ref](https://adrianb.io/2014/08/09/perlinnoise.html)

@@ -6,17 +6,6 @@ struct v2f
     //      - TEXCOORDn means custom data
 
     float4 vertex: SV_POSITION; // From Object-Space to Clip-Space
-    float4 position: TEXCOORD1;
-    float4 uv: TEXCOORD0;
+    // float4 position: TEXCOORD1;
+    // float4 uv: TEXCOORD0;
 };
-
-v2f vert (appdata_base v)
-{
-    v2f output;
-
-    output.vertex = UnityObjectToClipPos(v.vertex);
-    output.position = v.vertex;
-    output.uv = v.texcoord;
-
-    return output;
-}

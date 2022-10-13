@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MyMaterial
+  m_Name: 1_CubeToSphere
   m_Shader: {fileID: 4800000, guid: e85c11165009b445380ce5f5d594c977, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords:
@@ -77,6 +77,7 @@ Material:
     - _OcclusionStrength: 1
     - _Offset: 0.36
     - _Parallax: 0.02
+    - _Radius: 0.961
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
